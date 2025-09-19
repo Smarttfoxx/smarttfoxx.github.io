@@ -17,8 +17,7 @@ const Index = () => {
       tags: ["Malware Analysis", "Reverse Engineering", "MAKOP", "Ransomware"],
       featured: true,
       url: "https://medium.com/@ivancmoliveira/reverse-engineering-and-analyzing-malware-makop-9d91b6c3dafd",
-      image: "https://miro.medium.com/v2/resize:fill:160:107/0*MfplgnZ0vRoRmnZ6.png",
-      claps: 168
+      likes: 168
     },
     {
       title: "Reverse Engineering and Analyzing Malware: WannaCry Part 1 — General Overview",
@@ -27,8 +26,7 @@ const Index = () => {
       readTime: "15 min read",
       tags: ["WannaCry", "Malware Analysis", "Reverse Engineering", "Ransomware"],
       url: "https://medium.com/@ivancmoliveira/reverse-engineering-and-analyzing-malware-wannacry-3ce8b3f6406a",
-      image: "https://miro.medium.com/v2/resize:fill:160:107/1*lKoopnV00B7HyVoN4_qbNg.jpeg",
-      claps: 85
+      likes: 85
     }
   ];
 
