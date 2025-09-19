@@ -18,7 +18,7 @@ All colors MUST be HSL.
     --popover: 220 20% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142 76% 36%;
+    --primary: 38 85% 50%;
     --primary-foreground: 220 25% 6%;
 
     --secondary: 220 15% 12%;
@@ -27,7 +27,7 @@ All colors MUST be HSL.
     --muted: 220 15% 12%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 142 76% 36%;
+    --accent: 38 85% 50%;
     --accent-foreground: 220 25% 6%;
 
     --destructive: 0 84% 60%;
@@ -35,25 +35,25 @@ All colors MUST be HSL.
 
     --border: 220 15% 18%;
     --input: 220 15% 18%;
-    --ring: 142 76% 36%;
+    --ring: 38 85% 50%;
 
     --radius: 0.5rem;
 
     /* Custom design tokens */
-    --terminal-green: 142 76% 36%;
-    --terminal-green-glow: 142 76% 45%;
+    --terminal-green: 38 85% 50%;
+    --terminal-green-glow: 38 85% 60%;
     --cyber-blue: 217 91% 60%;
     --dark-surface: 220 20% 8%;
     --darker-surface: 220 25% 6%;
     
     /* Gradients */
     --gradient-cyber: linear-gradient(135deg, hsl(220 25% 6%), hsl(220 20% 8%));
-    --gradient-terminal: linear-gradient(90deg, hsl(142 76% 36% / 0.1), hsl(142 76% 45% / 0.2));
-    --gradient-glow: radial-gradient(circle at center, hsl(142 76% 36% / 0.3), transparent 70%);
+    --gradient-terminal: linear-gradient(90deg, hsl(38 85% 50% / 0.1), hsl(38 85% 60% / 0.2));
+    --gradient-glow: radial-gradient(circle at center, hsl(38 85% 50% / 0.3), transparent 70%);
     
     /* Shadows */
-    --shadow-cyber: 0 10px 40px -10px hsl(142 76% 36% / 0.2);
-    --shadow-glow: 0 0 30px hsl(142 76% 36% / 0.3);
+    --shadow-cyber: 0 10px 40px -10px hsl(38 85% 50% / 0.2);
+    --shadow-glow: 0 0 30px hsl(38 85% 50% / 0.3);
     --shadow-deep: 0 25px 50px -12px hsl(220 25% 6% / 0.8);
 
     /* Animations */
