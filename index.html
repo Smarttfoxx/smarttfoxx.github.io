@@ -1,27 +1,380 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SmarttFoxx - Cybersecurity & Reverse Engineering</title>
-    <meta name="description" content="Professional cybersecurity researcher focused on reverse engineering, malware analysis, and security research by an expert cybersecurity researcher." />
-    <meta name="author" content="CyberResearch" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Research Portfolio</title>
+    <style>
+        :root {
+            --bg-dark: #0d1117;
+            --card-bg: #161b22;
+            --accent: #00ff89;
+            --text: #c9d1d9;
+            --terminal-green: #23d18b;
+            --terminal-red: #ff7266;
+            --terminal-yellow: #eab93d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(var(--terminal-green) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .terminal-header {
+            background-color: #0d1117;
+            padding: 8px 15px;
+            border-bottom: 1px solid var(--terminal-green);
+            display: flex;
+            align-items: center;
+        }
+        
+        .terminal-dots {
+            display: flex;
+            gap: 5px;
+            margin-right: 15px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot.red { background-color: var(--terminal-red); }
+        .dot.yellow { background-color: var(--terminal-yellow); }
+        .dot.green { background-color: var(--terminal-green); }
+        
+        .terminal-path {
+            color: var(--terminal-green);
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        h1 {
+            color: var(--accent);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 137, 0.3);
+        }
+        
+        .tagline {
+            color: var(--terminal-yellow);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: var(--accent);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid #30363d;
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: "$";
+            color: var(--terminal-yellow);
+            margin-right: 10px;
+        }
+        
+        .research-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #30363d;
+        }
+        
+        .research-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .research-title {
+            color: var(--terminal-yellow);
+            font-size: 1.3em;
+            margin-bottom: 8px;
+        }
+        
+        .research-meta {
+            color: #8b949e;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .tag {
+            background-color: #21262d;
+            color: var(--terminal-green);
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+        
+        .terminal-output {
+            background-color: #0d1117;
+            border-left: 3px solid var(--accent);
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            color: var(--terminal-green);
+        }
+        
+        .output-line {
+            margin-bottom: 5px;
+        }
+        
+        .comment {
+            color: #8b949e;
+        }
+        
+        .function {
+            color: var(--terminal-yellow);
+        }
+        
+        .string {
+            color: #a5d6ff;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+            font-size: 0.9em;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: var(--terminal-green);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal-header">
+        <div class="terminal-dots">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="terminal-path">user@security-research:~$ portfolio</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>YOUR NAME</h1>
+            <div class="tagline">Malware Analyst | Kernel Developer | Security Researcher</div>
+            <div>Exploring the depths of system vulnerabilities since <span id="start-year"></span></div>
+        </header>
+        
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Hello, I'm a security researcher specializing in <span class="function">malware analysis</span>, <span class="function">kernel driver development</span>, and <span class="function">exploit research</span>. My work focuses on understanding advanced threat actors, developing defensive mechanisms, and pushing the boundaries of system security.</p>
+            <p>With experience in reverse engineering both user-mode and kernel-mode malware, I've developed tools and techniques to analyze sophisticated threats while maintaining operational security.</p>
+            
+            <div class="terminal-output">
+                <div class="output-line"><span class="comment"># Current research focus areas</span></div>
+                <div class="output-line">→ Windows kernel driver vulnerabilities</div>
+                <div class="output-line">→ UEFI/BIOS level malware</div>
+                <div class="output-line">→ EDR evasion techniques</div>
+                <div class="output-line">→ Memory forensics tooling</div>
+                <div class="output-line">→ Hardware-assisted security analysis</div>
+            </div>
+        </section>
+        
+        <section id="research">
+            <h2>Research Publications</h2>
+            
+            <div class="research-item">
+                <div class="research-title">Advanced Kernel Callback Hooking Techniques in Modern Windows Systems</div>
+                <div class="research-meta">Published: June 2023 | Conference: Black Hat USA</div>
+                <p>This research explores novel methods for detecting and analyzing kernel callback hooking used by sophisticated rootkits. Includes a new open-source analysis tool for callback enumeration.</p>
+                
+                <div class="tech-tags">
+                    <span class="tag">Windows Kernel</span>
+                    <span class="tag">Rootkit Detection</span>
+                    <span class="tag">Malware Analysis</span>
+                    <span class="tag">C/C++</span>
+                </div>
+                
+                <div class="terminal-output">
+                    <div class="output-line"><span class="comment">// Sample code from research</span></div>
+                    <div class="output-line"><span class="function">NTSTATUS</span> AnalyzeCallback(<span class="function">PVOID</span> CallbackAddress) {</div>
+                    <div class="output-line">    <span class="comment">// Validate callback structure integrity</span></div>
+                    <div class="output-line">    <span class="keyword">if</span> (<span class="function">!ValidateCallbackStructure</span>(CallbackAddress)) {</div>
+                    <div class="output-line">        <span class="function">LogSuspiciousActivity</span>(<span class="string">"Invalid callback structure detected"</span>);</div>
+                    <div class="output-line">        <span class="keyword">return</span> STATUS_INVALID_PARAMETER;</div>
+                    <div class="output-line">    }</div>
+                    <div class="output-line">    <span class="comment">// Additional analysis logic...</span></div>
+                    <div class="output-line">}</div>
+                </div>
+            </div>
+            
+            <div class="research-item">
+                <div class="research-title">UEFI Bootkit Analysis: Persistence Beyond the OS</div>
+                <div class="research-meta">Published: February 2023 | Journal of Cybersecurity Research</div>
+                <p>Comprehensive analysis of UEFI-level malware persistence mechanisms with case studies of recent APT campaigns. Includes memory acquisition techniques for firmware analysis.</p>
+                
+                <div class="tech-tags">
+                    <span class="tag">UEFI</span>
+                    <span class="tag">Firmware Security</span>
+                    <span class="tag">Memory Forensics</span>
+                    <span class="tag">x86 Assembly</span>
+                </div>
+            </div>
+            
+            <div class="research-item">
+                <div class="research-title">EDR Evasion Through Direct System Calls</div>
+                <div class="research-meta">Published: October 2022 | DEF CON 30</div>
+                <p>Novel approach to bypassing endpoint detection and response systems by utilizing direct system calls while maintaining stealth. Includes open-source tool for system call table analysis.</p>
+                
+                <div class="tech-tags">
+                    <span class="tag">Windows Internals</span>
+                    <span class="tag">Anti-EDR</span>
+                    <span class="tag">Syscall Analysis</span>
+                    <span class="tag">C</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tools">
+            <h2>Research Tools</h2>
+            
+            <div class="research-item">
+                <div class="research-title">KernelHookScanner</div>
+                <div class="research-meta">Open Source | C, Windows Driver Kit</div>
+                <p>A lightweight kernel driver for detecting and analyzing callback hooking in Windows systems. Designed for use in incident response and malware analysis.</p>
+                
+                <div class="terminal-output">
+                    <div class="output-line">C:\> KernelHookScanner.exe --full-scan</div>
+                    <div class="output-line">[+] Starting comprehensive callback analysis...</div>
+                    <div class="output-line">[+] Detected 3 suspicious callback hooks</div>
+                    <div class="output-line">[+] Hook at 0xFFFFF804C3A21000 (ObRegisterCallbacks)</div>
+                    <div class="output-line">    → Possible rootkit activity detected</div>
+                    <div class="output-line">[+] Results saved to hook_report.json</div>
+                </div>
+            </div>
+            
+            <div class="research-item">
+                <div class="research-title">UEFIMemDump</div>
+                <div class="research-meta">Open Source | Python, UEFI Shell</div>
+                <p>Toolchain for acquiring and analyzing UEFI firmware memory regions, enabling detection of persistent malware at the firmware level.</p>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>For research collaboration, speaking engagements, or security consulting:</p>
+            
+            <div class="terminal-output">
+                <div class="output-line">email: <span class="string">research@yourdomain.com</span></div>
+                <div class="output-line">pgp: <span class="string">0xDEADBEEF1337</span></div>
+                <div class="output-line">twitter: <span class="string">@yourhandle</span></div>
+                <div class="output-line">github: <span class="string">github.com/yourusername</span></div>
+                <div class="output-line"> </div>
+                <div class="output-line"><span class="comment"># Always verify PGP signatures for sensitive communications</span></div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© <span id="current-year"></span> YOUR NAME - Security Research Portfolio</p>
+            <p>All research content is for educational purposes only</p>
+            <div class="social-links">
+                <a href="https://github.com/yourusername">GitHub</a>
+                <a href="https://twitter.com/yourhandle">Twitter</a>
+                <a href="https://linkedin.com/in/yourprofile">LinkedIn</a>
+                <a href="mailto:research@yourdomain.com">Email</a>
+            </div>
+        </footer>
+    </div>
 
-    <meta property="og:title" content="CyberResearch - Cybersecurity & Reverse Engineering Blog" />
-    <meta property="og:description" content="Professional cybersecurity researcher focused on reverse engineering, malware analysis, and security research." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <script>
+        // Set current year and start year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        document.getElementById('start-year').textContent = new Date().getFullYear() - 5; // Adjust as needed
+        
+        // Add terminal cursor effect
+        const header = document.querySelector('header');
+        const cursor = document.createElement('span');
+        cursor.className = 'terminal-cursor';
+        header.appendChild(cursor);
+    </script>
+</body>
 </html>
