@@ -8,7 +8,7 @@ export const Navigation = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Terminal className="w-8 h-8 text-terminal-green" />
-            <span className="text-xl font-bold">CyberResearch</span>
+            <span className="text-xl font-bold">Ivan Oliveira</span>
           </div>
           
           <div className="hidden md:flex items-center space-x-6">

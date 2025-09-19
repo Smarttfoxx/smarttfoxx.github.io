@@ -10,50 +10,48 @@ import heroImage from "@/assets/hero-cyber-workspace.jpg";
 const Index = () => {
   const featuredPosts = [
     {
-      title: "Advanced Malware Analysis: Unpacking Modern Crypters",
-      excerpt: "Deep dive into contemporary malware packing techniques and practical approaches to unpacking encrypted payloads using dynamic and static analysis methods.",
-      date: "March 15, 2024",
+      title: "Reverse Engineering and Analyzing Malware: MAKOP History",
+      excerpt: "Comprehensive analysis of the MAKOP ransomware family, exploring its evolution, techniques, and defensive measures through reverse engineering methodologies.",
+      date: "August 2, 2024",
       readTime: "12 min read",
-      tags: ["Malware Analysis", "Reverse Engineering", "Cryptography"],
-      featured: true
+      tags: ["Malware Analysis", "Reverse Engineering", "MAKOP", "Ransomware"],
+      featured: true,
+      url: "https://medium.com/@ivancmoliveira/reverse-engineering-and-analyzing-malware-makop-9d91b6c3dafd",
+      image: "https://miro.medium.com/v2/resize:fill:160:107/0*MfplgnZ0vRoRmnZ6.png",
+      claps: 168
     },
     {
-      title: "Bypassing Modern Anti-Debug Techniques in Windows PE Files",
-      excerpt: "Comprehensive guide to identifying and circumventing sophisticated anti-debugging mechanisms used by modern malware and packed executables.",
-      date: "March 8, 2024", 
-      readTime: "8 min read",
-      tags: ["Anti-Debug", "Windows", "PE Analysis"]
+      title: "Reverse Engineering and Analyzing Malware: WannaCry Part 1 — General Overview",
+      excerpt: "First part of an in-depth series analyzing the infamous WannaCry ransomware attack, covering its technical implementation and propagation mechanisms.",
+      date: "June 6, 2024", 
+      readTime: "15 min read",
+      tags: ["WannaCry", "Malware Analysis", "Reverse Engineering", "Ransomware"],
+      url: "https://medium.com/@ivancmoliveira/reverse-engineering-and-analyzing-malware-wannacry-3ce8b3f6406a",
+      image: "https://miro.medium.com/v2/resize:fill:160:107/1*lKoopnV00B7HyVoN4_qbNg.jpeg",
+      claps: 85
     }
   ];
 
   const recentPosts = [
     {
-      title: "IDA Pro vs Ghidra: A Practical Comparison for Reverse Engineers",
-      excerpt: "Detailed comparison of industry-standard reverse engineering tools, covering strengths, weaknesses, and use-case scenarios for each platform.",
-      date: "March 1, 2024",
-      readTime: "10 min read",
-      tags: ["Tools", "IDA Pro", "Ghidra", "Comparison"]
+      title: "Reverse Engineering and Analyzing Malware: MAKOP History",
+      excerpt: "Comprehensive analysis of the MAKOP ransomware family, exploring its evolution, techniques, and defensive measures through reverse engineering methodologies.",
+      date: "August 2, 2024",
+      readTime: "12 min read",
+      tags: ["Malware Analysis", "Reverse Engineering", "MAKOP", "Ransomware"],
+      url: "https://medium.com/@ivancmoliveira/reverse-engineering-and-analyzing-malware-makop-9d91b6c3dafd",
+      image: "https://miro.medium.com/v2/resize:fill:160:107/0*MfplgnZ0vRoRmnZ6.png",
+      claps: 168
     },
     {
-      title: "Exploiting Buffer Overflows in Modern C++ Applications",
-      excerpt: "Analysis of memory corruption vulnerabilities in contemporary C++ codebases and practical exploitation techniques despite modern protections.",
-      date: "February 22, 2024",
+      title: "Reverse Engineering and Analyzing Malware: WannaCry Part 1 — General Overview",
+      excerpt: "First part of an in-depth series analyzing the infamous WannaCry ransomware attack, covering its technical implementation and propagation mechanisms.",
+      date: "June 6, 2024",
       readTime: "15 min read",
-      tags: ["Buffer Overflow", "C++", "Memory Corruption", "Exploitation"]
-    },
-    {
-      title: "Automating Vulnerability Discovery with Custom Fuzzing Frameworks",
-      excerpt: "Building scalable fuzzing infrastructure for automated vulnerability research, including setup, optimization, and result analysis.",
-      date: "February 15, 2024",
-      readTime: "11 min read",
-      tags: ["Fuzzing", "Automation", "Vulnerability Research"]
-    },
-    {
-      title: "Reverse Engineering IoT Firmware: From Extraction to Analysis",
-      excerpt: "Step-by-step methodology for extracting, unpacking, and analyzing IoT device firmware to identify security vulnerabilities.",
-      date: "February 8, 2024",
-      readTime: "13 min read",
-      tags: ["IoT Security", "Firmware Analysis", "Hardware Security"]
+      tags: ["WannaCry", "Malware Analysis", "Reverse Engineering", "Ransomware"],
+      url: "https://medium.com/@ivancmoliveira/reverse-engineering-and-analyzing-malware-wannacry-3ce8b3f6406a",
+      image: "https://miro.medium.com/v2/resize:fill:160:107/1*lKoopnV00B7HyVoN4_qbNg.jpeg",
+      claps: 85
     }
   ];
 
@@ -74,12 +72,12 @@ const Index = () => {
                   Cybersecurity Research
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                  Reverse Engineering &{" "}
+                  Ivan Oliveira -{" "}
                   <span className="text-terminal-green">Security Research</span>
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed">
-                  Deep technical analysis of malware, vulnerabilities, and security mechanisms. 
-                  Sharing practical insights from the frontlines of cybersecurity research.
+                  Reverse Engineer and Malware Analyst | C/C++ | Assembly | Ghidra | IDA Pro. 
+                  Sharing deep technical insights from malware analysis, reverse engineering, and vulnerability research.
                 </p>
               </div>
               
@@ -273,11 +271,11 @@ const Index = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center space-x-2">
               <Terminal className="w-6 h-6 text-terminal-green" />
-              <span className="font-bold">CyberResearch</span>
+              <span className="font-bold">Ivan Oliveira</span>
             </div>
             
             <p className="text-sm text-muted-foreground">
-              © 2024 CyberResearch. Professional cybersecurity research and analysis.
+              © 2024 Ivan Oliveira. Cybersecurity research and malware analysis.
             </p>
             
             <div className="flex items-center gap-4">
