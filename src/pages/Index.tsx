@@ -137,8 +137,8 @@ const Index = () => {
             ))}
           </div>
 
-          <div className="text-center">
-            <h3 className="text-2xl font-bold mb-8">Recent Publications</h3>
+          <div>
+            <h3 className="text-2xl font-bold mb-8 text-center">Recent Publications</h3>
             <div className="grid md:grid-cols-2 gap-6">
               {recentPosts.map((post, index) => (
                 <div key={index} className="animate-slide-up" style={{ animationDelay: `${index * 0.05}s` }}>
