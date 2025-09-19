@@ -10,7 +10,7 @@ import heroImage from "@/assets/hero-cyber-workspace.jpg";
 const Index = () => {
   const featuredPosts = [
     {
-      title: "Reverse Engineering and Analyzing Malware: MAKOP History",
+      title: "Reverse Engineering and Analyzing Malware: MAKOP",
       excerpt: "Comprehensive analysis of the MAKOP ransomware family, exploring its evolution, techniques, and defensive measures through reverse engineering methodologies.",
       date: "August 2, 2024",
       readTime: "12 min read",
