@@ -127,10 +127,46 @@ h2::before {
     padding-bottom: 0;
 }
 
-.research-title {
-    color: var(--terminal-yellow);
-    font-size: 1.3em;
-    margin-bottom: 8px;
+/* Add to your existing CSS */
+.research-title a {
+    color: var(--terminal-yellow) !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.research-title a:hover {
+    color: var(--accent) !important;
+    text-decoration: underline;
+}
+
+.research-title a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.research-title a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* External link indicator */
+.research-title a[target="_blank"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+    opacity: 0.7;
+    position: static;
+    display: inline;
+    margin-left: 3px;
+    transform: none;
 }
 
 .research-meta {
