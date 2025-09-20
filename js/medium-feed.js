@@ -69,9 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             </div>
                             
-                            <div class="terminal-output">
-                                <div class="output-line">→ Read full article: <span class="string">${article.link.replace(/^https?:\/\//, '')}</span></div>
-                            </div>
+                            <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="terminal-button">
+                                <span class="button-icon">❱</span> READ FULL ARTICLE
+                            </a>
                         </div>
                     `;
                 } catch (e) {

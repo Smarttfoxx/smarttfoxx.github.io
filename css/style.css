@@ -215,3 +215,35 @@ footer {
         padding: 20px;
     }
 }
+
+/* Terminal-style action buttons */
+.terminal-button {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--terminal-green);
+    border: 1px solid var(--terminal-green);
+    padding: 5px 12px;
+    margin-top: 12px;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.95em;
+}
+
+.terminal-button:hover {
+    background-color: rgba(35, 209, 139, 0.1);
+    box-shadow: 0 0 8px rgba(35, 209, 139, 0.3);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.terminal-button:active {
+    transform: translateY(1px);
+}
+
+.button-icon {
+    margin-right: 6px;
+    font-size: 1.1em;
+    vertical-align: middle;
+}
