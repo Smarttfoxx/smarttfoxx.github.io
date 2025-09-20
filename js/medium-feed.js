@@ -1,79 +1,116 @@
+// Medium RSS feed integration using JSONP (bypasses CORS)
 document.addEventListener('DOMContentLoaded', function() {
-    const mediumContainer = document.getElementById('medium-publications');
+    const articlesContainer = document.getElementById('medium-articles');
     
-    // Clear the loading message
-    mediumContainer.innerHTML = '';
+    function fetchMediumArticles(maxArticles = 5) {
+        return new Promise((resolve, reject) => {
+            const rssUrl = 'https://medium.com/@ivancmoliveira/feed';
+            const callbackName = 'mediumCallback_' + Date.now();
+            
+            window[callbackName] = function(data) {
+                // Clean up
+                script.parentNode.removeChild(script);
+                delete window[callbackName];
+                
+                if (data.status === 'ok' && data.items && data.items.length > 0) {
+                    resolve(data.items.slice(0, maxArticles));
+                } else {
+                    reject(new Error('No articles found in feed'));
+                }
+            };
+            
+            const script = document.createElement('script');
+            script.src = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&callback=${callbackName}`;
+            script.onerror = () => {
+                script.parentNode.removeChild(script);
+                delete window[callbackName];
+                reject(new Error('Script load failed'));
+            };
+            
+            document.head.appendChild(script);
+            
+            // Timeout after 10 seconds
+            setTimeout(() => {
+                if (window[callbackName]) {
+                    script.parentNode.removeChild(script);
+                    delete window[callbackName];
+                    reject(new Error('Request timed out'));
+                }
+            }, 10000);
+        });
+    }
     
-    // Medium RSS feed URL
-    const rssUrl = 'https://medium.com/@ivancmoliveira/feed';
+    function stripHtml(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
+    }
     
-    // Use RSS2JSON API to bypass CORS issues
-    const rssToJsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    function truncateText(text, maxLength = 200) {
+        if (text.length <= maxLength) return text;
+        return text.substr(0, maxLength).substr(0, text.lastIndexOf(' ')) + '...';
+    }
     
-    fetch(rssToJsonUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'ok' && data.items && data.items.length > 0) {
-                // Process each article
-                data.items.slice(0, 5).forEach(item => { // Show up to 5 latest posts
-                    const article = document.createElement('div');
-                    article.className = 'research-item medium-item';
-                    
-                    // Format the date properly
-                    const pubDate = new Date(item.pubDate);
-                    const formattedDate = pubDate.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                    
-                    // Extract first part of content as excerpt (remove HTML tags)
-                    let excerpt = item.content.replace(/<[^>]*>/g, '');
-                    if (excerpt.length > 200) {
-                        excerpt = excerpt.substring(0, 200) + '...';
-                    }
-                    
-                    article.innerHTML = `
-                        <div class="research-title">
-                            <a href="${item.link}" target="_blank" style="color: var(--terminal-yellow); text-decoration: none;">
-                                ${item.title}
-                            </a>
-                        </div>
-                        <div class="research-meta">Published: ${formattedDate} | Medium Publication</div>
-                        <p>${excerpt}</p>
-                        <div class="tech-tags">
-                            <span class="tag">Medium</span>
-                            <span class="tag">Security</span>
-                            ${item.categories && item.categories.length > 0 ? 
-                                item.categories.slice(0, 2).map(cat => `<span class="tag">${cat}</span>`).join('') : 
-                                '<span class="tag">Research</span>'
-                            }
-                        </div>
-                        <div class="terminal-output">
-                            <div class="output-line">→ Read full article: <span class="string">${item.link}</span></div>
-                        </div>
-                    `;
-                    
-                    mediumContainer.appendChild(article);
-                });
-            } else {
-                mediumContainer.innerHTML = `
-                    <div class="terminal-output">
-                        <div class="output-line terminal-red">[!] Error loading Medium publications</div>
-                        <div class="output-line">[!] Please check if your Medium profile is public</div>
-                        <div class="output-line">[!] Direct link: <a href="https://medium.com/@ivancmoliveira" target="_blank" style="color: var(--terminal-green);">medium.com/@ivancmoliveira</a></div>
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    }
+    
+    function displayArticles(articles) {
+        let html = '';
+        
+        articles.forEach(article => {
+            const cleanDescription = stripHtml(article.description || article.content || '');
+            const truncatedDescription = truncateText(cleanDescription, 180);
+            const formattedDate = formatDate(article.pubDate);
+            
+            html += `
+                <div class="research-item medium-article">
+                    <div class="research-title">
+                        <a href="${article.link}" target="_blank" style="color: var(--terminal-yellow); text-decoration: none;">
+                            ${article.title}
+                        </a>
                     </div>
-                `;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching Medium feed:', error);
-            mediumContainer.innerHTML = `
-                <div class="terminal-output">
-                    <div class="output-line terminal-red">[!] Connection error</div>
-                    <div class="output-line">[!] Failed to load Medium publications</div>
-                    <div class="output-line">[!] Direct link: <a href="https://medium.com/@ivancmoliveira" target="_blank" style="color: var(--terminal-green);">medium.com/@ivancmoliveira</a></div>
+                    <div class="research-meta">Published: ${formattedDate} | Medium Publication</div>
+                    <p>${truncatedDescription}</p>
+                    
+                    <div class="tech-tags">
+                        <span class="tag">Medium</span>
+                        <span class="tag">Security</span>
+                        ${article.categories && article.categories.length > 0 ? 
+                            item.categories.slice(0, 2).map(cat => `<span class="tag">${cat}</span>`).join('') : 
+                            '<span class="tag">Research</span>'
+                        }
+                    </div>
+                    
+                    <div class="terminal-output">
+                        <div class="output-line">→ Read full article: <span class="string">${article.link}</span></div>
+                    </div>
                 </div>
             `;
+        });
+        
+        articlesContainer.innerHTML = html;
+    }
+    
+    function displayError(message) {
+        articlesContainer.innerHTML = `
+            <div class="terminal-output">
+                <div class="output-line terminal-red">[!] ERROR: ${message}</div>
+                <div class="output-line">[!] Direct link: <a href="https://medium.com/@ivancmoliveira" target="_blank" style="color: var(--terminal-green);">medium.com/@ivancmoliveira</a></div>
+                <div class="output-line">[!] Check if your Medium profile is public</div>
+            </div>
+        `;
+    }
+    
+    fetchMediumArticles()
+        .then(displayArticles)
+        .catch(error => {
+            console.error('Medium feed error:', error);
+            displayError(error.message || 'Failed to load articles');
         });
 });

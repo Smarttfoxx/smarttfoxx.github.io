@@ -8,10 +8,8 @@ const cursor = document.createElement('span');
 cursor.className = 'terminal-cursor';
 header.appendChild(cursor);
 
-// Load Medium publications after main content
+// Load Medium publications after DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    // Create and add the Medium feed script
-    const mediumScript = document.createElement('script');
-    mediumScript.src = 'js/medium-feed.js';
-    document.body.appendChild(mediumScript);
+    // No need to dynamically load the script - it's already in index.html
+    // The medium-feed.js will automatically run on DOMContentLoaded
 });
