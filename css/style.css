@@ -158,17 +158,6 @@ h2::before {
     transform-origin: bottom left;
 }
 
-/* External link indicator */
-.research-title a[target="_blank"]::after {
-    content: " ↗";
-    font-size: 0.8em;
-    opacity: 0.7;
-    position: static;
-    display: inline;
-    margin-left: 3px;
-    transform: none;
-}
-
 .research-meta {
     color: #8b949e;
     font-size: 0.9em;
