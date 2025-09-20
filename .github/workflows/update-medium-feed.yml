@@ -1,5 +1,9 @@
 name: Update Medium Feed
 
+# ADD THIS SECTION - GRANTS WRITE PERMISSIONS
+permissions:
+  contents: write  # Allows pushing to the repository
+
 on:
   schedule:
     - cron: '0 */6 * * *'  # Runs every 6 hours
@@ -15,19 +19,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref || github.ref }}
-          fetch-depth: 0  # Critical for being able to push changes
+          fetch-depth: 0
+          # CRITICAL: Use the token with write permissions
+          token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Fetch and process Medium feed
         id: process_feed
         run: |
-          # Install jq for JSON processing
           sudo apt-get update
           sudo apt-get install -y jq curl
           
-          # Fetch the RSS feed
           FEED_DATA=$(curl -s "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2F%40ivancmoliveira%2Ffeed")
           
-          # Check if request was successful
           STATUS=$(echo "$FEED_DATA" | jq -r '.status')
           if [ "$STATUS" != "ok" ]; then
             echo "Error: Failed to fetch feed. Response: $FEED_DATA"
@@ -35,10 +38,7 @@ jobs:
             exit 1
           fi
           
-          # Create directory if it doesn't exist
           mkdir -p data
-          
-          # Save to file (with proper JSON formatting)
           echo "$FEED_DATA" | jq '.items' > data/medium-feed.json
           
           echo "feed_updated=true" >> $GITHUB_OUTPUT
@@ -49,11 +49,11 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           
-          # Check if there are changes
           if [ -n "$(git status --porcelain)" ]; then
             git add data/medium-feed.json
             git commit -m "Update Medium feed [skip ci]"
-            git push origin HEAD:main
+            # CRITICAL: Use GITHUB_TOKEN for authentication
+            git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
           else
             echo "No changes to commit"
           fi
