@@ -3,7 +3,7 @@ name: Update Medium Feed
 on:
   schedule:
     - cron: '0 */6 * * *'  # Runs every 6 hours
-  workflow_dispatch:        # Allows manual triggering
+  workflow_dispatch:
   push:
     branches: [main, master]
 
@@ -13,13 +13,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref }}
+          fetch-depth: 0  # Critical for being able to push changes
         
       - name: Fetch and process Medium feed
         id: process_feed
         run: |
           # Install jq for JSON processing
           sudo apt-get update
-          sudo apt-get install -y jq
+          sudo apt-get install -y jq curl
           
           # Fetch the RSS feed
           FEED_DATA=$(curl -s "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2F%40ivancmoliveira%2Ffeed")
@@ -27,20 +30,17 @@ jobs:
           # Check if request was successful
           STATUS=$(echo "$FEED_DATA" | jq -r '.status')
           if [ "$STATUS" != "ok" ]; then
-            echo "Error fetching feed: $FEED_DATA"
+            echo "Error: Failed to fetch feed. Response: $FEED_DATA"
+            echo "feed_updated=false" >> $GITHUB_OUTPUT
             exit 1
           fi
-          
-          # Extract just the items array
-          ITEMS=$(echo "$FEED_DATA" | jq '.items')
           
           # Create directory if it doesn't exist
           mkdir -p data
           
-          # Save to file
-          echo "$ITEMS" > data/medium-feed.json
+          # Save to file (with proper JSON formatting)
+          echo "$FEED_DATA" | jq '.items' > data/medium-feed.json
           
-          # Output for next step
           echo "feed_updated=true" >> $GITHUB_OUTPUT
 
       - name: Commit updated feed
@@ -49,12 +49,11 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           
-          # Only commit if there are changes
-          if git diff --exit-code data/medium-feed.json; then
-            echo "No changes to medium-feed.json"
-            exit 78  # Special exit code that skips the remaining steps
-          else
+          # Check if there are changes
+          if [ -n "$(git status --porcelain)" ]; then
             git add data/medium-feed.json
             git commit -m "Update Medium feed [skip ci]"
-            git push
+            git push origin HEAD:main
+          else
+            echo "No changes to commit"
           fi
