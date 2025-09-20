@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const articlesContainer = document.getElementById('medium-articles');
-    
+
     // Always show loading state first
     articlesContainer.innerHTML = `
         <div class="terminal-output">
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Process and display articles
             let html = '';
             const maxArticles = 5;
-            
+
             articles.slice(0, maxArticles).forEach(article => {
                 try {
                     // Format the date
@@ -38,18 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         month: 'short',
                         day: 'numeric'
                     });
-                    
+
                     // Extract and clean description
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(article.description || '', 'text/html');
                     let cleanDescription = doc.body.textContent || '';
-                    
+
                     // Truncate description
                     let truncatedDescription = cleanDescription;
                     if (cleanDescription.length > 180) {
                         truncatedDescription = cleanDescription.substring(0, 180) + '...';
                     }
-                    
+
                     html += `
                         <div class="research-item medium-article">
                             <div class="research-title">
@@ -57,18 +57,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                     ${article.title}
                                 </a>
                             </div>
-                            <div class="research-meta">Published: ${formattedDate} | Medium Publication</div>
+                            <div class="research-meta">Published: ${formattedDate}</div>
                             <p>${truncatedDescription}</p>
-                            
+
                             <div class="tech-tags">
                                 <span class="tag">Medium</span>
                                 <span class="tag">Security</span>
-                                ${article.categories && article.categories.length > 0 ? 
-                                    article.categories.slice(0, 2).map(cat => `<span class="tag">${cat}</span>`).join('') : 
+                                ${article.categories && article.categories.length > 0 ?
+                                    article.categories.slice(0, 2).map(cat => `<span class="tag">${cat}</span>`).join('') :
                                     '<span class="tag">Research</span>'
                                 }
                             </div>
-                            
+
                             <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="terminal-button">
                                 <span class="button-icon">❱</span> READ FULL ARTICLE
                             </a>
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error('Error processing article:', e, article);
                 }
             });
-            
+
             if (html) {
                 articlesContainer.innerHTML = html;
             } else {
